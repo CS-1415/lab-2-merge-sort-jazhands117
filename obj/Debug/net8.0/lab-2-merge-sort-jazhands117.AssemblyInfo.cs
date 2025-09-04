@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("lab-2-merge-sort-jazhands117")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+60e68cbcd42bb9af9988d33afad6b4a938f9fb22")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f03ebc54bf9673b7a2aba965202cd95b864246bc")]
 [assembly: System.Reflection.AssemblyProductAttribute("lab-2-merge-sort-jazhands117")]
 [assembly: System.Reflection.AssemblyTitleAttribute("lab-2-merge-sort-jazhands117")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

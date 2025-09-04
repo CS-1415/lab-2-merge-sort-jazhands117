@@ -11,8 +11,8 @@ using System.Diagnostics;
 //sort function, following pseudocode given!//
 static int[] CombineSortedArrays(int[] a, int[] b)
 {
-    int[] combined = new int[a.Length + b.Length];
-    //NTS: new command gives a new array//
+    int[] combined = new int[a.Length + b.Length]; //NTS: new command gives a new array//
+    
     int aIndex = 0;
     int bIndex = 0;
 
@@ -34,13 +34,44 @@ static int[] CombineSortedArrays(int[] a, int[] b)
     return combined;
 }
 
+//merge function, takes one array and spits it out sorted, then shoves it into the combination//
+//NTS: .. is the operator that pulls a chunk of range (i.e 0..middle pulls [0,middle])//
+static int[] SortViaMergesort(int[] values)
+{
+    if (values.Length < 2)
+    {
+        return (int[])values.Clone(); //returns new array with same values -- no weird memory issues if changed!//
+                                      //note, I did have to ChatGPT how to return a COPY of the values, for honesty's sake//
+    }
+    else
+    {
+        int middle = values.Length / 2;
+        int[] firstHalf = values[0..middle];
+        int[] secondHalf = values[middle..values.Length];
+
+        int[] firstSorted = SortViaMergesort(firstHalf);
+        int[] secondSorted = SortViaMergesort(secondHalf);
+
+        return CombineSortedArrays(firstSorted, secondSorted);
+    }
+}
+
 //tests//
 
 //testing two different a,b (already sorted), should output last int[]//
 Debug.Assert(Enumerable.SequenceEqual(
     CombineSortedArrays(new int[]{ -5, 2, 5, 8, 10 }, new int[]{ 1, 2, 5 }),
-    new int[]{ -5, 1, 2, 2, 5, 5, 8, 10 }));
+    new int[]{ -5, 1, 2, 2, 5, 5, 8, 10 })); //expected output//
 Debug.Assert(Enumerable.SequenceEqual(
     CombineSortedArrays(new int[]{ 1, 3, 5 }, new int[]{ -5, 3, 6, 7 }),
-    new int[]{ -5, 1, 3, 3, 5, 6, 7 }));
-Console.WriteLine("All tests passed!");
+    new int[]{ -5, 1, 3, 3, 5, 6, 7 })); //expected output//
+Console.WriteLine("All combination tests passed!");
+
+//testing a single array for merge sort//
+Debug.Assert(Enumerable.SequenceEqual(
+    SortViaMergesort(new int[]{7,1,-5,6,3,5,3}),
+    new int[]{-5,1,3,3,5,6,7})); //expected output//
+Debug.Assert(Enumerable.SequenceEqual(
+    SortViaMergesort(new int[]{2,10,5,-5,1,2,8,5}),
+    new int[]{-5,1,2,2,5,5,8,10})); //expected output//
+Console.WriteLine("All merge sort tests passed!");
